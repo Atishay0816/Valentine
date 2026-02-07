@@ -8,16 +8,16 @@
 <style>
 * {
   box-sizing: border-box;
-  font-family: "Segoe UI", sans-serif;
+  font-family: "Georgia", serif;
 }
 
 body {
   margin: 0;
-  background: linear-gradient(135deg, #ff5f9e, #ff8ccf);
+  background: linear-gradient(135deg, #ff5f9e, #ff8fcf);
   overflow-x: hidden;
 }
 
-/* ---------- PASSWORD SCREEN ---------- */
+/* ---------------- PASSWORD ---------------- */
 #lockScreen {
   position: fixed;
   inset: 0;
@@ -31,7 +31,7 @@ body {
 .lock-box {
   background: #fff;
   padding: 25px;
-  border-radius: 15px;
+  border-radius: 16px;
   width: 90%;
   max-width: 340px;
   text-align: center;
@@ -45,7 +45,6 @@ body {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
-  font-size: 16px;
 }
 
 .lock-box button {
@@ -56,78 +55,94 @@ body {
   color: white;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
 }
 
 #error {
-  color: red;
   display: none;
+  color: red;
   margin-top: 10px;
 }
 
-/* ---------- HEART BLAST ---------- */
+/* ---------------- HEART BLAST ---------------- */
 .heart {
   position: fixed;
-  font-size: 24px;
+  font-size: 22px;
   animation: blast 2s linear forwards;
   z-index: 20;
 }
 
 @keyframes blast {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  100% { transform: translateY(-120vh) scale(2); opacity: 0; }
+  from { transform: translateY(0) scale(1); opacity: 1; }
+  to { transform: translateY(-120vh) scale(2); opacity: 0; }
 }
 
-/* ---------- MAIN CONTENT ---------- */
-#mainContent {
+/* ---------------- MAIN PAGE ---------------- */
+#mainPage, #yesPage {
   display: none;
-  padding: 25px;
-  text-align: center;
-  color: white;
+  min-height: 100vh;
+  position: relative;
 }
 
-.proposal {
+/* Vintage photo style */
+.photo {
+  position: absolute;
+  width: 130px;
+  background: #fff;
+  padding: 8px 8px 18px;
+  border-radius: 6px;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+}
+
+.photo img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+/* Center text card */
+.center-card {
+  position: relative;
+  z-index: 5;
+  max-width: 90%;
+  margin: 120px auto 0;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(6px);
+  padding: 25px;
+  border-radius: 18px;
+  text-align: center;
+  color: #fffbe6;
   font-style: italic;
   font-size: 20px;
-  margin-top: 20px;
-  color: #fffbe6;
 }
 
+/* Buttons */
 .buttons {
   margin-top: 25px;
 }
 
 .buttons button {
-  padding: 12px 22px;
+  padding: 12px 24px;
   font-size: 16px;
   border-radius: 25px;
   border: none;
   margin: 10px;
-  cursor: pointer;
 }
 
-.yes {
-  background: #ff2f6d;
-  color: white;
+.yes { background: #ff2f6d; color: white; }
+.no { background: white; color: #ff2f6d; }
+
+/* YES PAGE */
+#yesPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
 }
 
-.no {
-  background: #ffffff;
-  color: #ff2f6d;
-}
-
-/* ---------- GALLERY ---------- */
-.gallery {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.gallery img {
-  width: 100%;
-  border-radius: 14px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+.yes-text {
+  font-size: 24px;
+  font-style: italic;
+  color: #fffbe6;
 }
 </style>
 </head>
@@ -144,23 +159,39 @@ body {
   </div>
 </div>
 
-<!-- MAIN -->
-<div id="mainContent">
+<!-- MAIN PAGE -->
+<div id="mainPage">
 
-  <div class="proposal">
-    hum is baar bhi tumhare saath valentine day mai nahi rahenge par kya tum meri valentine banogi harr saal ke liye?👉🏻👈🏻☺️
-  </div>
-
-  <div class="buttons">
-    <button class="yes" onclick="yesClicked()">Yes 💖</button>
-    <button class="no" onclick="noClicked()">No 😭</button>
-  </div>
-
-  <div class="gallery">
+  <!-- Photos -->
+  <div class="photo" style="top:40px; left:20px; transform:rotate(-8deg)">
     <img src="p1.jpg">
+  </div>
+  <div class="photo" style="top:90px; right:25px; transform:rotate(7deg)">
     <img src="p2.jpg">
+  </div>
+  <div class="photo" style="bottom:80px; left:30px; transform:rotate(5deg)">
     <img src="p3.jpg">
+  </div>
+  <div class="photo" style="bottom:40px; right:40px; transform:rotate(-6deg)">
     <img src="p4.jpg">
+  </div>
+
+  <!-- Text -->
+  <div class="center-card">
+    hum is baar bhi tumhare saath valentine day mai nahi rahenge par kya tum meri valentine banogi harr saal ke liye?👉🏻👈🏻☺️
+
+    <div class="buttons">
+      <button class="yes" onclick="openYes()">Yes 💖</button>
+      <button class="no" onclick="alert('No accepted nahi hai 😌')">No 😭</button>
+    </div>
+  </div>
+</div>
+
+<!-- YES PAGE -->
+<div id="yesPage">
+  <div class="yes-text">
+    good choice 🥹<br><br>
+    Mai tumhara hun sona hamesha hamesha ke liye☺️🥰💕
   </div>
 </div>
 
@@ -169,43 +200,40 @@ body {
 </audio>
 
 <script>
-const CORRECT_PASSWORD = "sonubaby";
+const PASS = "sonubaby";
 
 function unlock() {
-  const val = document.getElementById("password").value;
-  if (val !== CORRECT_PASSWORD) {
-    document.getElementById("error").style.display = "block";
+  if (password.value !== PASS) {
+    error.style.display = "block";
     return;
   }
 
   heartBlast();
-
   setTimeout(() => {
-    document.getElementById("lockScreen").style.display = "none";
-    document.getElementById("mainContent").style.display = "block";
-    document.getElementById("bgMusic").play();
-  }, 1500);
+    lockScreen.style.display = "none";
+    mainPage.style.display = "block";
+    bgMusic.play();
+  }, 1200);
 }
 
 function heartBlast() {
-  for (let i = 0; i < 50; i++) {
+  for (let i = 0; i < 40; i++) {
     const h = document.createElement("div");
     h.className = "heart";
     h.innerText = "❤️";
     h.style.left = Math.random() * 100 + "vw";
     h.style.bottom = "0";
-    h.style.animationDuration = (1.5 + Math.random()) + "s";
     document.body.appendChild(h);
     setTimeout(() => h.remove(), 2000);
   }
 }
 
-function yesClicked() {
-  alert("She said YES 💕");
-}
-
-function noClicked() {
-  alert("Not accepting NO 😌");
+function openYes() {
+  heartBlast();
+  setTimeout(() => {
+    mainPage.style.display = "none";
+    yesPage.style.display = "flex";
+  }, 800);
 }
 </script>
 
