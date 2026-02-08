@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>💖 Good Choice</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #ff4f8b, #ff8fcf);
+  font-family: Georgia, serif;
+  font-style: italic;
+  text-align: center;
+  overflow: hidden;
+}
+
+.text {
+  color: #fffbe6;
+  font-size: 26px;
+  animation: pop 1s ease forwards;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.3); opacity: 0; }
+  70% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 22px;
+  animation: float 4s linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-120vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="text">
+  good choice 🥹<br><br>
+  Mai tumhara hun sona hamesha hamesha ke liye☺️🥰💕
+</div>
+
+<script>
+for (let i = 0; i < 30; i++) {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = "💖";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.animationDuration = (3 + Math.random() * 2) + "s";
+  document.body.appendChild(h);
+}
+</script>
+
+</body>
+</html>
