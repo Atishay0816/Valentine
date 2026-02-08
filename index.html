@@ -8,16 +8,17 @@
 <style>
 * {
   box-sizing: border-box;
-  font-family: "Georgia", serif;
+  font-family: Georgia, serif;
 }
 
 body {
   margin: 0;
+  height: 100vh;
   background: linear-gradient(135deg, #ff5f9e, #ff8fcf);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* ---------------- PASSWORD ---------------- */
+/* ---------- PASSWORD SCREEN ---------- */
 #lockScreen {
   position: fixed;
   inset: 0;
@@ -25,11 +26,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 20;
 }
 
 .lock-box {
-  background: #fff;
+  background: white;
   padding: 25px;
   border-radius: 16px;
   width: 90%;
@@ -63,12 +64,12 @@ body {
   margin-top: 10px;
 }
 
-/* ---------------- HEART BLAST ---------------- */
+/* ---------- HEART BLAST ---------- */
 .heart {
   position: fixed;
   font-size: 22px;
   animation: blast 2s linear forwards;
-  z-index: 20;
+  z-index: 30;
 }
 
 @keyframes blast {
@@ -76,45 +77,48 @@ body {
   to { transform: translateY(-120vh) scale(2); opacity: 0; }
 }
 
-/* ---------------- MAIN PAGE ---------------- */
-#mainPage, #yesPage {
+/* ---------- MAIN PAGE ---------- */
+#mainPage {
   display: none;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
 }
 
-/* Vintage photo style */
-.photo {
+/* Background photos */
+.photo-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+
+.photo-bg img {
   position: absolute;
   width: 130px;
-  background: #fff;
+  background: white;
   padding: 8px 8px 18px;
   border-radius: 6px;
   box-shadow: 0 12px 25px rgba(0,0,0,0.35);
 }
 
-.photo img {
-  width: 100%;
-  border-radius: 4px;
-}
-
-/* Center text card */
-.center-card {
-  position: relative;
+/* Center proposal */
+.proposal-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 5;
-  max-width: 90%;
-  margin: 120px auto 0;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(6px);
-  padding: 25px;
-  border-radius: 18px;
+  width: 90%;
+  max-width: 420px;
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(8px);
+  padding: 26px;
+  border-radius: 20px;
   text-align: center;
   color: #fffbe6;
   font-style: italic;
   font-size: 20px;
 }
 
-/* Buttons */
 .buttons {
   margin-top: 25px;
 }
@@ -125,24 +129,17 @@ body {
   border-radius: 25px;
   border: none;
   margin: 10px;
+  cursor: pointer;
 }
 
-.yes { background: #ff2f6d; color: white; }
-.no { background: white; color: #ff2f6d; }
-
-/* YES PAGE */
-#yesPage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 30px;
+.yes {
+  background: #ff2f6d;
+  color: white;
 }
 
-.yes-text {
-  font-size: 24px;
-  font-style: italic;
-  color: #fffbe6;
+.no {
+  background: white;
+  color: #ff2f6d;
 }
 </style>
 </head>
@@ -159,9 +156,10 @@ body {
   </div>
 </div>
 
+<!-- MAIN PAGE -->
 <div id="mainPage">
 
-  <!-- PHOTO BACKGROUND LAYER -->
+  <!-- PHOTOS -->
   <div class="photo-bg">
     <img src="p1.jpg" style="top:40px; left:20px; transform:rotate(-8deg)">
     <img src="p2.jpg" style="top:40px; right:20px; transform:rotate(7deg)">
@@ -169,7 +167,7 @@ body {
     <img src="p4.jpg" style="bottom:40px; right:25px; transform:rotate(-6deg)">
   </div>
 
-  <!-- CENTER PROPOSAL -->
+  <!-- PROPOSAL -->
   <div class="proposal-card">
     hum is baar bhi tumhare saath valentine day mai nahi rahenge par kya tum meri valentine banogi harr saal ke liye?👉🏻👈🏻☺️
 
@@ -193,7 +191,6 @@ function unlock() {
     error.style.display = "block";
     return;
   }
-
   heartBlast();
   setTimeout(() => {
     lockScreen.style.display = "none";
