@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -12,7 +12,7 @@ body{
   font-family: Georgia, serif;
   font-style: italic;
   background: linear-gradient(135deg, #7a0c2e, #ff6f91);
-  color:#2b0a14; /* DARK ROMANTIC TEXT */
+  color:#2b0a14;
   overflow:hidden;
 }
 
@@ -27,28 +27,24 @@ body{
 }
 
 /* ---------- PASSWORD ---------- */
-#passwordScreen{
-  display:flex;
-}
+#passwordScreen{display:flex;}
 
 .password-box{
-  background: rgba(255, 182, 193, 0.35);
+  background: rgba(255,182,193,0.35);
   padding:30px;
   border-radius:20px;
   text-align:center;
   box-shadow:0 12px 30px rgba(0,0,0,0.35);
-  color:#2b0a14;
 }
 
+/* ---------- INPUT & BUTTON ---------- */
 input{
   padding:10px;
   border-radius:10px;
   border:none;
   outline:none;
-  margin-top:10px;
 }
 
-/* ---------- BUTTON ---------- */
 button{
   margin-top:15px;
   padding:10px 22px;
@@ -63,10 +59,6 @@ button{
 }
 
 /* ---------- PROPOSAL ---------- */
-#proposalScreen{
-  display:none;
-}
-
 .photo-bg img{
   position:absolute;
   width:130px;
@@ -80,55 +72,55 @@ button{
   position:relative;
   z-index:15;
   max-width:85%;
-  background: rgba(255, 210, 220, 0.45);
+  background: rgba(255,210,220,0.45);
   backdrop-filter: blur(10px);
   padding:26px;
   border-radius:20px;
   text-align:center;
-  color:#2b0a14; /* DARK TEXT */
   font-weight:600;
   box-shadow:0 15px 40px rgba(0,0,0,0.3);
   transform:translateY(-10%);
 }
 
-.actions{
-  margin-top:20px;
-}
+.actions{margin-top:20px;}
+#noBtn{position:absolute;}
 
-#noBtn{
-  position:absolute;
-}
-
-/* ---------- YES PAGE ---------- */
+/* ---------- YES SCREEN ---------- */
 #yesScreen{
   display:none;
   z-index:20;
   text-align:center;
   font-size:26px;
   font-weight:700;
-  color:#2b0a14;
+}
+
+/* Fireworks canvas */
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:15;
+  pointer-events:none;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="music1.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PASSWORD SCREEN -->
+<!-- PASSWORD -->
 <div class="screen" id="passwordScreen">
   <div class="password-box">
     <h2>Enter Password 💖</h2>
-    <input id="pass" type="password" placeholder="password">
+    <input id="pass" type="password">
     <br>
-    <button type="button" onclick="unlock()">Open</button>
+    <button onclick="unlock()">Open</button>
   </div>
 </div>
 
-<!-- PROPOSAL SCREEN -->
+<!-- PROPOSAL -->
 <div class="screen" id="proposalScreen">
 
   <div class="photo-bg">
@@ -139,50 +131,87 @@ button{
   </div>
 
   <div class="proposal-card">
-    Sona hum tumse bhot pyaar karte hai🥰 aur hamesha tumhare harr preshani mai tumhara saath denge🤗... tum kabhi matt ghabrana😘💕.. tum mujhse hi shaadi karna👉🏻👈🏻.. bolo karogi na?🥺
+    Sona hum tumse bhot pyaar karte hai🥰 aur hamesha tumhare harr preshani mai tumhara saath denge🤗...  
+    tum kabhi matt ghabrana😘💕.. tum mujhse hi shaadi karna👉🏻👈🏻.. bolo karogi na?🥺
 
     <div class="actions">
       <button onclick="yes()">Bilkul sona💕</button>
       <button id="noBtn">nahi 😖</button>
     </div>
   </div>
-
 </div>
 
-<!-- YES SCREEN -->
+<!-- YES -->
 <div class="screen" id="yesScreen">
   🥹<br><br>
   I love you so much🌹❤️<br>
   hamesha hamesha tumko khush rakhenge☺️🥰💕
 </div>
 
+<canvas id="fireworks"></canvas>
+
 <script>
+/* ---------- BASIC FLOW ---------- */
 function unlock(){
-  const pwd = document.getElementById("pass").value;
-  if(pwd === "love"){
-    document.getElementById("bgMusic").play();
-    hideAll();
-    document.getElementById("proposalScreen").style.display="flex";
-  } else {
-    alert("Wrong password 🙂");
+  if(document.getElementById("pass").value === "love"){
+    bgMusic.play();
+    show("proposalScreen");
   }
 }
 
-document.getElementById("noBtn").addEventListener("mouseover", ()=>{
-  const btn = document.getElementById("noBtn");
-  btn.style.left = Math.random()*70 + "%";
-  btn.style.top  = Math.random()*70 + "%";
-});
-
 function yes(){
-  hideAll();
-  document.getElementById("yesScreen").style.display="flex";
+  show("yesScreen");
+  startFireworks();
 }
 
-function hideAll(){
-  document.getElementById("passwordScreen").style.display="none";
-  document.getElementById("proposalScreen").style.display="none";
-  document.getElementById("yesScreen").style.display="none";
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.style.display="none");
+  document.getElementById(id).style.display="flex";
+}
+
+/* ---------- NO BUTTON ---------- */
+noBtn.addEventListener("mouseover",()=>{
+  noBtn.style.left = Math.random()*70+"%";
+  noBtn.style.top  = Math.random()*70+"%";
+});
+
+/* ---------- FIREWORKS ---------- */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let particles = [];
+
+function firework(){
+  const x = Math.random()*canvas.width;
+  const y = Math.random()*canvas.height/2;
+  for(let i=0;i<60;i++){
+    particles.push({
+      x,y,
+      vx:Math.cos(i)*Math.random()*6,
+      vy:Math.sin(i)*Math.random()*6,
+      life:60
+    });
+  }
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach((p,i)=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    p.life--;
+    ctx.fillStyle="rgba(255,255,255,0.8)";
+    ctx.fillRect(p.x,p.y,2,2);
+    if(p.life<=0) particles.splice(i,1);
+  });
+  requestAnimationFrame(animate);
+}
+
+function startFireworks(){
+  setInterval(firework,700);
+  animate();
 }
 </script>
 
