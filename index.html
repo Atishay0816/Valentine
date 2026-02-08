@@ -2,93 +2,61 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Valentine 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💕</title>
 
 <style>
-* {
-  box-sizing: border-box;
-  font-family: Georgia, serif;
-}
-
 body {
   margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff5f9e, #ff8fcf);
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  background: linear-gradient(135deg,#ff5f8f,#ff8fb1);
   overflow: hidden;
 }
 
-/* ---------- PASSWORD SCREEN ---------- */
-#lockScreen {
+/* common */
+.screen {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #ff4f8b, #ff85b3);
-  display: flex;
-  justify-content: center;
+  display: none;
   align-items: center;
-  z-index: 20;
+  justify-content: center;
 }
 
-.lock-box {
-  background: white;
-  padding: 25px;
-  border-radius: 16px;
-  width: 90%;
-  max-width: 340px;
+/* ---------- PASSWORD ---------- */
+#passwordScreen {
+  display: flex;
+}
+
+.password-box {
+  background: rgba(255,255,255,0.2);
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
-}
-
-.lock-box h2 {
-  color: #ff4f8b;
-}
-
-.lock-box input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-}
-
-.lock-box button {
-  margin-top: 12px;
-  width: 100%;
-  padding: 12px;
-  background: #ff4f8b;
   color: white;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
   border: none;
-  border-radius: 8px;
+  outline: none;
 }
 
-#error {
+button {
+  margin-top: 15px;
+  padding: 10px 22px;
+  border-radius: 20px;
+  border: none;
+  background: #ff2f6e;
+  color: white;
+  font-style: italic;
+  cursor: pointer;
+}
+
+/* ---------- PROPOSAL ---------- */
+#proposalScreen {
   display: none;
-  color: red;
-  margin-top: 10px;
-}
-
-/* ---------- HEART BLAST ---------- */
-.heart {
-  position: fixed;
-  font-size: 22px;
-  animation: blast 2s linear forwards;
-  z-index: 30;
-}
-
-@keyframes blast {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(-120vh) scale(2); opacity: 0; }
-}
-
-/* ---------- MAIN PAGE ---------- */
-#mainPage {
-  display: none;
-  height: 100vh;
-  position: relative;
-}
-
-/* Background photos */
-.photo-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
 }
 
 .photo-bg img {
@@ -100,122 +68,102 @@ body {
   box-shadow: 0 12px 25px rgba(0,0,0,0.35);
 }
 
-/* Center proposal */
 .proposal-card {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -60%);
+  position: relative;
   z-index: 5;
-  width: 90%;
-  max-width: 420px;
+  max-width: 85%;
   background: rgba(255,255,255,0.18);
   backdrop-filter: blur(8px);
   padding: 26px;
   border-radius: 20px;
-  text-align: center;
   color: #fffbe6;
-  font-style: italic;
-  font-size: 20px;
+  text-align: center;
+  transform: translateY(-10%);
 }
 
-.buttons {
-  margin-top: 25px;
+.actions {
+  margin-top: 20px;
 }
 
-.buttons button {
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 25px;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
+#noBtn {
+  position: absolute;
 }
 
-.yes {
-  background: #ff2f6d;
+/* ---------- YES PAGE ---------- */
+#yesScreen {
+  display: none;
   color: white;
-}
-
-.no {
-  background: white;
-  color: #ff2f6d;
+  font-size: 26px;
+  text-align: center;
 }
 </style>
 </head>
 
 <body>
 
+<!-- MUSIC (one time only) -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <!-- PASSWORD -->
-<div id="lockScreen">
-  <div class="lock-box">
-    <h2>🔒 Private</h2>
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="unlock()">Unlock</button>
-    <div id="error">Wrong password</div>
+<div class="screen" id="passwordScreen">
+  <div class="password-box">
+    <h2>Enter Password 💖</h2>
+    <input id="pass" type="password">
+    <br>
+    <button onclick="unlock()">Open</button>
   </div>
 </div>
 
-<!-- MAIN PAGE -->
-<div id="mainPage">
+<!-- PROPOSAL -->
+<div class="screen" id="proposalScreen">
 
-  <!-- PHOTOS -->
   <div class="photo-bg">
-    <img src="p1.jpg" style="top:40px; left:20px; transform:rotate(-8deg)">
-    <img src="p2.jpg" style="top:40px; right:20px; transform:rotate(7deg)">
-    <img src="p3.jpg" style="bottom:40px; left:25px; transform:rotate(6deg)">
-    <img src="p4.jpg" style="bottom:40px; right:25px; transform:rotate(-6deg)">
+    <img src="p1.jpg" style="top:5%; left:5%; transform:rotate(-8deg)">
+    <img src="p2.jpg" style="top:10%; right:6%; transform:rotate(7deg)">
+    <img src="p3.jpg" style="bottom:8%; left:10%; transform:rotate(5deg)">
+    <img src="p4.jpg" style="bottom:12%; right:8%; transform:rotate(-6deg)">
   </div>
 
-  <!-- PROPOSAL -->
   <div class="proposal-card">
-    hum is baar bhi tumhare saath valentine day mai nahi rahenge par kya tum meri valentine banogi harr saal ke liye?👉🏻👈🏻☺️
+    hum is baar bhi tumhare saath valentine day mai nahi rahenge  
+    par kya tum meri valentine banogi harr saal ke liye?👉🏻👈🏻☺️
 
-    <div class="buttons">
-      <button class="yes" onclick="openYes()">Yes 💖</button>
-      <button class="no" onclick="alert('No ka option valid nahi hai 😌')">No 😭</button>
+    <div class="actions">
+      <button onclick="yes()">Yes 💕</button>
+      <button id="noBtn">No 😜</button>
     </div>
   </div>
 
 </div>
 
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+<!-- YES -->
+<div class="screen" id="yesScreen">
+  good choice 🥹<br><br>
+  Mai tumhara hun sona<br>
+  hamesha hamesha ke liye ☺️🥰💕
+</div>
 
 <script>
-const PASS = "sonubaby";
+const music = document.getElementById("bgMusic");
 
-function unlock() {
-  if (password.value !== PASS) {
-    error.style.display = "block";
-    return;
-  }
-  heartBlast();
-  setTimeout(() => {
-    lockScreen.style.display = "none";
-    mainPage.style.display = "block";
-    bgMusic.play();
-  }, 1200);
-}
-
-function heartBlast() {
-  for (let i = 0; i < 40; i++) {
-    const h = document.createElement("div");
-    h.className = "heart";
-    h.innerText = "❤️";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.bottom = "0";
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 2000);
+function unlock(){
+  if(document.getElementById("pass").value === "love"){
+    music.play();
+    document.getElementById("passwordScreen").style.display="none";
+    document.getElementById("proposalScreen").style.display="flex";
   }
 }
 
-function openYes() {
-  heartBlast();
-  setTimeout(() => {
-    window.location.href = "yes.html";
-  }, 900);
+document.getElementById("noBtn").addEventListener("mouseover", ()=>{
+  document.getElementById("noBtn").style.left = Math.random()*70+"%";
+  document.getElementById("noBtn").style.top = Math.random()*70+"%";
+});
+
+function yes(){
+  document.getElementById("proposalScreen").style.display="none";
+  document.getElementById("yesScreen").style.display="flex";
 }
 </script>
 
