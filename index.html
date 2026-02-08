@@ -6,117 +6,126 @@
 <title>Valentine 💕</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Georgia', serif;
+/* ---------- GLOBAL ---------- */
+body{
+  margin:0;
+  font-family: Georgia, serif;
   font-style: italic;
-  background: linear-gradient(135deg,#ff5f8f,#ff8fb1);
-  overflow: hidden;
+  background: linear-gradient(135deg, #7a0c2e, #ff6f91);
+  color: #fff3e8;
+  overflow:hidden;
 }
 
-/* common */
-.screen {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
+/* ---------- SCREEN SYSTEM ---------- */
+.screen{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
 }
 
-/* ---------- PASSWORD ---------- */
-#passwordScreen {
-  display: flex;
+/* ---------- PASSWORD SCREEN ---------- */
+#passwordScreen{
+  display:flex;
 }
 
-.password-box {
-  background: rgba(255,255,255,0.2);
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  color: white;
+.password-box{
+  background: rgba(255, 182, 193, 0.22);
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  color:#fffaf5;
+  box-shadow:0 12px 30px rgba(0,0,0,0.3);
 }
 
-input {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
+input{
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+  margin-top:10px;
 }
 
-button {
-  margin-top: 15px;
-  padding: 10px 22px;
-  border-radius: 20px;
-  border: none;
-  background: #ff2f6e;
-  color: white;
-  font-style: italic;
-  cursor: pointer;
+/* ---------- BUTTONS ---------- */
+button{
+  margin-top:15px;
+  padding:10px 22px;
+  border-radius:20px;
+  border:none;
+  background: linear-gradient(135deg, #ff2f6e, #ff5f8f);
+  color:#fffaf5;
+  font-style:italic;
+  cursor:pointer;
+  box-shadow:0 6px 15px rgba(0,0,0,0.25);
 }
 
-/* ---------- PROPOSAL ---------- */
-#proposalScreen {
-  display: none;
+/* ---------- PROPOSAL SCREEN ---------- */
+#proposalScreen{
+  display:none;
 }
 
-.photo-bg img {
-  position: absolute;
-  width: 130px;
-  background: white;
-  padding: 8px 8px 18px;
-  border-radius: 6px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
+/* Background photos */
+.photo-bg img{
+  position:absolute;
+  width:130px;
+  background:white;
+  padding:8px 8px 18px;
+  border-radius:6px;
+  box-shadow:0 12px 25px rgba(0,0,0,0.35);
 }
 
-.proposal-card {
-  position: relative;
-  z-index: 5;
-  max-width: 85%;
-  background: rgba(255,255,255,0.18);
-  backdrop-filter: blur(8px);
-  padding: 26px;
-  border-radius: 20px;
-  color: #fffbe6;
-  text-align: center;
+/* Center proposal */
+.proposal-card{
+  position:relative;
+  z-index:5;
+  max-width:85%;
+  background: rgba(255, 192, 203, 0.18);
+  backdrop-filter: blur(10px);
+  padding:26px;
+  border-radius:20px;
+  text-align:center;
+  color:#fff3e8;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
   transform: translateY(-10%);
 }
 
-.actions {
-  margin-top: 20px;
+.actions{
+  margin-top:20px;
 }
 
-#noBtn {
-  position: absolute;
+#noBtn{
+  position:absolute;
 }
 
-/* ---------- YES PAGE ---------- */
-#yesScreen {
-  display: none;
-  color: white;
-  font-size: 26px;
-  text-align: center;
+/* ---------- YES SCREEN ---------- */
+#yesScreen{
+  display:none;
+  text-align:center;
+  font-size:26px;
+  color:#fff3e8;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC (one time only) -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="music1.mp3" type="audio/mpeg">
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PASSWORD -->
+<!-- PASSWORD SCREEN -->
 <div class="screen" id="passwordScreen">
   <div class="password-box">
     <h2>Enter Password 💖</h2>
-    <input id="pass" type="password">
+    <input id="pass" type="password" placeholder="password">
     <br>
-    <button onclick="unlock()">Open</button>
+    <button type="button" onclick="unlock()">Open</button>
   </div>
 </div>
 
-<!-- PROPOSAL -->
+<!-- PROPOSAL SCREEN -->
 <div class="screen" id="proposalScreen">
 
   <div class="photo-bg">
@@ -138,7 +147,7 @@ button {
 
 </div>
 
-<!-- YES -->
+<!-- YES SCREEN -->
 <div class="screen" id="yesScreen">
   good choice 🥹<br><br>
   Mai tumhara hun sona<br>
@@ -146,21 +155,26 @@ button {
 </div>
 
 <script>
-const music = document.getElementById("bgMusic");
-
+/* PASSWORD LOGIC */
 function unlock(){
-  if(document.getElementById("pass").value === "love"){
-    music.play();
+  const pwd = document.getElementById("pass").value;
+  if(pwd === "love"){
+    document.getElementById("bgMusic").play();
     document.getElementById("passwordScreen").style.display="none";
     document.getElementById("proposalScreen").style.display="flex";
+  } else {
+    alert("Wrong password 🙂");
   }
 }
 
+/* NO BUTTON ESCAPE */
 document.getElementById("noBtn").addEventListener("mouseover", ()=>{
-  document.getElementById("noBtn").style.left = Math.random()*70+"%";
-  document.getElementById("noBtn").style.top = Math.random()*70+"%";
+  const btn = document.getElementById("noBtn");
+  btn.style.left = Math.random()*70 + "%";
+  btn.style.top  = Math.random()*70 + "%";
 });
 
+/* YES BUTTON */
 function yes(){
   document.getElementById("proposalScreen").style.display="none";
   document.getElementById("yesScreen").style.display="flex";
