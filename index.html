@@ -6,17 +6,15 @@
 <title>Valentine 💕</title>
 
 <style>
-/* ---------- GLOBAL ---------- */
 body{
   margin:0;
   font-family: Georgia, serif;
   font-style: italic;
-  background: linear-gradient(135deg, #7a0c2e, #ff6f91);
-  color: #fff3e8;
+  background: linear-gradient(135deg,#ff5f8f,#ff8fb1);
   overflow:hidden;
 }
 
-/* ---------- SCREEN SYSTEM ---------- */
+/* screens */
 .screen{
   position:fixed;
   inset:0;
@@ -25,85 +23,65 @@ body{
   justify-content:center;
 }
 
-/* ---------- PASSWORD SCREEN ---------- */
-#passwordScreen{
-  display:flex;
-}
-
+/* PASSWORD */
+#passwordScreen{display:flex;}
 .password-box{
-  background: rgba(255, 182, 193, 0.22);
+  background:rgba(255,255,255,0.25);
   padding:30px;
   border-radius:20px;
   text-align:center;
-  color:#fffaf5;
-  box-shadow:0 12px 30px rgba(0,0,0,0.3);
+  color:white;
 }
-
 input{
   padding:10px;
   border-radius:10px;
   border:none;
   outline:none;
-  margin-top:10px;
 }
-
-/* ---------- BUTTONS ---------- */
 button{
   margin-top:15px;
   padding:10px 22px;
   border-radius:20px;
   border:none;
-  background: linear-gradient(135deg, #ff2f6e, #ff5f8f);
-  color:#fffaf5;
+  background:#ff2f6e;
+  color:white;
   font-style:italic;
   cursor:pointer;
-  box-shadow:0 6px 15px rgba(0,0,0,0.25);
 }
 
-/* ---------- PROPOSAL SCREEN ---------- */
+/* PROPOSAL */
 #proposalScreen{
   display:none;
 }
-
-/* Background photos */
 .photo-bg img{
   position:absolute;
   width:130px;
   background:white;
   padding:8px 8px 18px;
   border-radius:6px;
-  box-shadow:0 12px 25px rgba(0,0,0,0.35);
+  box-shadow:0 12px 25px rgba(0,0,0,.35);
 }
-
-/* Center proposal */
 .proposal-card{
   position:relative;
   z-index:5;
   max-width:85%;
-  background: rgba(255, 192, 203, 0.18);
-  backdrop-filter: blur(10px);
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(8px);
   padding:26px;
   border-radius:20px;
   text-align:center;
-  color:#fff3e8;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-  transform: translateY(-10%);
+  color:#fffbe6;
+  transform:translateY(-10%);
 }
+.actions{margin-top:20px;}
+#noBtn{position:absolute;}
 
-.actions{
-  margin-top:20px;
-}
-
-#noBtn{
-  position:absolute;
-}
-
-/* ---------- YES SCREEN ---------- */
+/* YES */
 #yesScreen{
   display:none;
-  text-align:center;
+  color:white;
   font-size:26px;
-  color:#fff3e8;
+  text-align:center;
 }
 </style>
 </head>
@@ -112,10 +90,10 @@ button{
 
 <!-- MUSIC -->
 <audio id="bgMusic" loop>
-  <source src="music1.mp3" type="audio/mpeg">
+  <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PASSWORD SCREEN -->
+<!-- PASSWORD -->
 <div class="screen" id="passwordScreen">
   <div class="password-box">
     <h2>Enter Password 💖</h2>
@@ -125,14 +103,13 @@ button{
   </div>
 </div>
 
-<!-- PROPOSAL SCREEN -->
+<!-- PROPOSAL -->
 <div class="screen" id="proposalScreen">
-
   <div class="photo-bg">
-    <img src="p1.jpg" style="top:5%; left:5%; transform:rotate(-8deg)">
-    <img src="p2.jpg" style="top:10%; right:6%; transform:rotate(7deg)">
-    <img src="p3.jpg" style="bottom:8%; left:10%; transform:rotate(5deg)">
-    <img src="p4.jpg" style="bottom:12%; right:8%; transform:rotate(-6deg)">
+    <img src="p1.jpg" style="top:5%;left:5%;transform:rotate(-8deg)">
+    <img src="p2.jpg" style="top:10%;right:6%;transform:rotate(7deg)">
+    <img src="p3.jpg" style="bottom:8%;left:10%;transform:rotate(5deg)">
+    <img src="p4.jpg" style="bottom:12%;right:8%;transform:rotate(-6deg)">
   </div>
 
   <div class="proposal-card">
@@ -144,10 +121,9 @@ button{
       <button id="noBtn">No 😜</button>
     </div>
   </div>
-
 </div>
 
-<!-- YES SCREEN -->
+<!-- YES -->
 <div class="screen" id="yesScreen">
   good choice 🥹<br><br>
   Mai tumhara hun sona<br>
@@ -155,7 +131,6 @@ button{
 </div>
 
 <script>
-/* PASSWORD LOGIC */
 function unlock(){
   const pwd = document.getElementById("pass").value;
   if(pwd === "love"){
@@ -167,14 +142,12 @@ function unlock(){
   }
 }
 
-/* NO BUTTON ESCAPE */
-document.getElementById("noBtn").addEventListener("mouseover", ()=>{
+document.getElementById("noBtn").addEventListener("mouseover",()=>{
   const btn = document.getElementById("noBtn");
   btn.style.left = Math.random()*70 + "%";
   btn.style.top  = Math.random()*70 + "%";
 });
 
-/* YES BUTTON */
 function yes(){
   document.getElementById("proposalScreen").style.display="none";
   document.getElementById("yesScreen").style.display="flex";
