@@ -6,40 +6,48 @@
 <title>Valentine 💕</title>
 
 <style>
+/* ---------- GLOBAL ---------- */
 body{
   margin:0;
   font-family: Georgia, serif;
   font-style: italic;
   background: linear-gradient(135deg, #7a0c2e, #ff6f91);
-  color: #fff3e8; /* warm ivory, readable */
+  color:#fff3e8;
   overflow:hidden;
 }
 
-/* screens */
+/* ---------- SCREEN SYSTEM ---------- */
 .screen{
   position:fixed;
   inset:0;
   display:none;
   align-items:center;
   justify-content:center;
+  z-index:10;
 }
 
-/* PASSWORD */
-#passwordScreen{display:flex;}
+/* ---------- PASSWORD ---------- */
+#passwordScreen{
+  display:flex;
+}
+
 .password-box{
-  background: rgba(255, 182, 193, 0.22);
+  background: rgba(255, 182, 193, 0.25);
   padding:30px;
   border-radius:20px;
   text-align:center;
-  color:#fffaf5;
   box-shadow:0 12px 30px rgba(0,0,0,0.3);
 }
+
 input{
   padding:10px;
   border-radius:10px;
   border:none;
   outline:none;
+  margin-top:10px;
 }
+
+/* ---------- BUTTON ---------- */
 button{
   margin-top:15px;
   padding:10px 22px;
@@ -48,45 +56,51 @@ button{
   background: linear-gradient(135deg, #ff2f6e, #ff5f8f);
   color:#fffaf5;
   font-style:italic;
-  font-weight:500;
   cursor:pointer;
   box-shadow:0 6px 15px rgba(0,0,0,0.25);
 }
 
-/* PROPOSAL */
+/* ---------- PROPOSAL ---------- */
 #proposalScreen{
   display:none;
 }
+
 .photo-bg img{
   position:absolute;
   width:130px;
   background:white;
   padding:8px 8px 18px;
   border-radius:6px;
-  box-shadow:0 12px 25px rgba(0,0,0,.35);
+  box-shadow:0 12px 25px rgba(0,0,0,0.35);
 }
+
 .proposal-card{
   position:relative;
-  z-index:5;
+  z-index:15;
   max-width:85%;
-  background: rgba(255, 192, 203, 0.18); /* soft rose glass */
+  background: rgba(255, 192, 203, 0.18);
   backdrop-filter: blur(10px);
   padding:26px;
   border-radius:20px;
   text-align:center;
-  color:#fff3e8;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+  box-shadow:0 15px 40px rgba(0,0,0,0.25);
   transform:translateY(-10%);
 }
-.actions{margin-top:20px;}
-#noBtn{position:absolute;}
 
-/* YES */
+.actions{
+  margin-top:20px;
+}
+
+#noBtn{
+  position:absolute;
+}
+
+/* ---------- YES PAGE ---------- */
 #yesScreen{
   display:none;
-  color:white;
-  font-size:26px;
+  z-index:20;
   text-align:center;
+  font-size:26px;
 }
 </style>
 </head>
@@ -98,7 +112,7 @@ button{
   <source src="music1.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PASSWORD -->
+<!-- PASSWORD SCREEN -->
 <div class="screen" id="passwordScreen">
   <div class="password-box">
     <h2>Enter Password 💖</h2>
@@ -108,13 +122,14 @@ button{
   </div>
 </div>
 
-<!-- PROPOSAL -->
+<!-- PROPOSAL SCREEN -->
 <div class="screen" id="proposalScreen">
+
   <div class="photo-bg">
-    <img src="p1.jpg" style="top:5%;left:5%;transform:rotate(-8deg)">
-    <img src="p2.jpg" style="top:10%;right:6%;transform:rotate(7deg)">
-    <img src="p3.jpg" style="bottom:8%;left:10%;transform:rotate(5deg)">
-    <img src="p4.jpg" style="bottom:12%;right:8%;transform:rotate(-6deg)">
+    <img src="p1.jpg" style="top:5%; left:5%; transform:rotate(-8deg)">
+    <img src="p2.jpg" style="top:10%; right:6%; transform:rotate(7deg)">
+    <img src="p3.jpg" style="bottom:8%; left:10%; transform:rotate(5deg)">
+    <img src="p4.jpg" style="bottom:12%; right:8%; transform:rotate(-6deg)">
   </div>
 
   <div class="proposal-card">
@@ -126,9 +141,10 @@ button{
       <button id="noBtn">No 😜</button>
     </div>
   </div>
+
 </div>
 
-<!-- YES -->
+<!-- YES SCREEN -->
 <div class="screen" id="yesScreen">
   good choice 🥹<br><br>
   Mai tumhara hun sona<br>
@@ -136,26 +152,36 @@ button{
 </div>
 
 <script>
+/* ---------- PASSWORD ---------- */
 function unlock(){
   const pwd = document.getElementById("pass").value;
   if(pwd === "love"){
     document.getElementById("bgMusic").play();
-    document.getElementById("passwordScreen").style.display="none";
+    hideAll();
     document.getElementById("proposalScreen").style.display="flex";
   } else {
     alert("Wrong password 🙂");
   }
 }
 
-document.getElementById("noBtn").addEventListener("mouseover",()=>{
+/* ---------- NO BUTTON ---------- */
+document.getElementById("noBtn").addEventListener("mouseover", ()=>{
   const btn = document.getElementById("noBtn");
   btn.style.left = Math.random()*70 + "%";
   btn.style.top  = Math.random()*70 + "%";
 });
 
+/* ---------- YES ---------- */
 function yes(){
-  document.getElementById("proposalScreen").style.display="none";
+  hideAll();
   document.getElementById("yesScreen").style.display="flex";
+}
+
+/* ---------- HELPER ---------- */
+function hideAll(){
+  document.getElementById("passwordScreen").style.display="none";
+  document.getElementById("proposalScreen").style.display="none";
+  document.getElementById("yesScreen").style.display="none";
 }
 </script>
 
